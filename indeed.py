@@ -11,9 +11,24 @@ def extract(page):
 def transform(soup):
     divs = soup.find_all('div', class_ = 'jobsearch-SerpJobCard')
     for item in divs:
-        title = item.find('a').text
-        print(title)
+        title = item.find('a').text.strip()
+        company= item.find('span', class_ ='company').text.strip()
+        try:
+            salary = item.find('sapn', class_ = 'salaryText').text.strip()
+        except:
+            salary = ''
+        summary = item.find('div', {'class' : 'summary'}).text.strip()    
+        job = {
+          'title': title,
+          'company': company,
+          'salary': salary,
+          'summary': summary,  
+        }
+        joblist.append(job)
+    return
 
+joblist = []
 c = extract(10)  
 
 transform(c)
+print(joblist)
