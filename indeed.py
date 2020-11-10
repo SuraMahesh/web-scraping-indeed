@@ -10,8 +10,10 @@ def extract(page):
 
 def transform(soup):
     divs = soup.find_all('div', class_ = 'jobsearch-SerpJobCard')
-    return len(divs)
+    for item in divs:
+        title = item.find('a').text
+        print(title)
 
 c = extract(10)  
 
-print(transform(c))
+transform(c)
